@@ -29,6 +29,7 @@ GitHub = module.exports =
   createIssue: (projectName, issue, comments) ->
     delete issue.milestone
     delete issue.assignee
+    delete issue.assignees
     issue.state = 'open' if issue.state in ['opened', 'reopened']
     issue.body = issue.description
 

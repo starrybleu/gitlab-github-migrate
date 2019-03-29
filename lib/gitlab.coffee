@@ -1,11 +1,12 @@
 require('dotenv').load()
 request = require 'request-promise'
 requestJSON = request.defaults(json: true)
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 
 GitLab = module.exports =
   get: (path) ->
     { GITLAB_URL, GITLAB_TOKEN } = process.env
-    url = "#{GITLAB_URL}/api/v3/#{path}?private_token=#{GITLAB_TOKEN}&per_page=1000"
+    url = "#{GITLAB_URL}/api/v4/#{path}?private_token=#{GITLAB_TOKEN}&per_page=1000"
     requestJSON.get url
 
   getIssues: (projectId) ->

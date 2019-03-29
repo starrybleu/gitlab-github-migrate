@@ -18,7 +18,7 @@ task 'migrate:issues', 'migrate issues', (options) ->
     .then (issues) ->
       for issue in issues
         do (issue) ->
-          GitLab.getComments(gitlab_id, issue.id)
+          GitLab.getComments(gitlab_id, issue.iid)
             .then (comments) ->
               GitHub.createIssue(github_name, issue, comments)
 
