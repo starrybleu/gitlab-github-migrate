@@ -16,11 +16,16 @@ task 'migrate:issues', 'migrate issues', (options) ->
   { gitlab_id, github_name } = options
   GitLab.getIssues(gitlab_id)
     .then (issues) ->
+      console.debug('issues : ', issues)
       for issue in issues
         do (issue) ->
+          console.debug('current issue.iid : ', issue.iid)
           GitLab.getComments(gitlab_id, issue.iid)
             .then (comments) ->
+              console.debug('fetched comments : ', comments)
               GitHub.createIssue(github_name, issue, comments)
+            .catch (error) ->
+              console.error(error)
 
 task 'migrate:milestones', 'migrate milestones', (options) ->
   { gitlab_id, github_name } = options
